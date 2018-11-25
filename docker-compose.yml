@@ -3,10 +3,19 @@ version: '3'
 services:
   db:
     image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - /var/lib/postgresql
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: db
   web:
     env_file: .env
     build: .
-    command: python3 src/manage.py runserver 0.0.0.0:8000
+    command: bash -c "python3 src/manage.py migrate && python3 src/manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/api
     ports:

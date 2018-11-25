@@ -1,8 +1,11 @@
-install:
-	docker-compose run --rm web pip install -r requirements-dev.txt --user --upgrade
+build:
+	docker-compose build
 
-start:
+web:
 	docker-compose up web
+	
+start:
+	docker-compose up
 
 daemon:
-	docker-compose up -d web
+	docker-compose up -d
